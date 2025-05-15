@@ -10,14 +10,20 @@ export default function TabLayout() {
           fontFamily: 'Rubik-Medium',
         },
         tabBarStyle: {
-          height: 88,
-          paddingBottom: 32,
+          height: 60,
           paddingTop: 8,
+          paddingBottom: 8,
+          backgroundColor: '#fff',
+          borderTopWidth: 1,
+          borderTopColor: '#E5E5EA',
         },
         tabBarLabelStyle: {
           fontFamily: 'Rubik',
           fontSize: 12,
+          marginBottom: 4,
         },
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: '#999',
       }}>
       <Tabs.Screen
         name="workout"
