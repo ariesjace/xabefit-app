@@ -2,15 +2,41 @@ import { Link, router } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import SafeAreaLayout from '../components/SafeAreaLayout';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SignInScreen() {
+  const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSignIn = () => {
-    // TODO: Implement actual authentication
-    router.replace('/(tabs)');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      router.replace('/(tabs)/workout');
+    } catch (err) {
+      setError('Invalid email or password');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  handleLogin(); 
+};
+
 
   return (
     <SafeAreaLayout>
@@ -20,15 +46,23 @@ export default function SignInScreen() {
           <TextInput
             style={styles.input}
             placeholder="Email"
+            placeholderTextColor="#A9A9A9"
+            value={email}
+              onChangeText={setEmail}
             keyboardType="email-address"
             autoCapitalize="none"
           />
           <TextInput
             style={styles.input}
             placeholder="Password"
+            placeholderTextColor="#A9A9A9"
+            value={password}
+            onChangeText={setPassword}
             secureTextEntry
           />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button}
+            onPress={handleSignIn}
+          >
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
@@ -88,4 +122,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Medium',
     color: '#007AFF',
   },
-}); 
+});
+
+

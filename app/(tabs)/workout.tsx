@@ -2,6 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import SafeAreaLayout from '../components/SafeAreaLayout';
+import { useNavigation } from 'expo-router';
+import { useState } from 'react';
+import { Link, router } from 'expo-router';
 
 const workoutPlans = [
   {
@@ -67,7 +70,7 @@ export default function WorkoutScreen() {
                       <Text style={styles.difficultyText}>{workout.difficulty}</Text>
                     </View>
                   </View>
-                  
+
                   <Text style={styles.description}>{workout.description}</Text>
 
                   <View style={styles.workoutDetails}>
@@ -235,4 +238,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
   },
-}); 
+});
