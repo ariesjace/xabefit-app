@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import SafeAreaLayout from '../components/SafeAreaLayout';
 
 const exerciseHistory = [
   {
@@ -37,45 +38,47 @@ const exerciseHistory = [
 
 export default function TrackerScreen() {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
-        <Text style={styles.title}>Exercise History</Text>
-        <Pressable style={styles.addButton}>
-          <Ionicons name="add" size={24} color="#fff" />
-          <Text style={styles.addButtonText}>Log Exercise</Text>
-        </Pressable>
-      </Animated.View>
+    <SafeAreaLayout>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
+          <Text style={styles.title}>Exercise History</Text>
+          <Pressable style={styles.addButton}>
+            <Ionicons name="add" size={24} color="#fff" />
+            <Text style={styles.addButtonText}>Log Exercise</Text>
+          </Pressable>
+        </Animated.View>
 
-      <View style={styles.exerciseList}>
-        {exerciseHistory.map((exercise, index) => (
-          <Animated.View
-            key={exercise.id}
-            entering={FadeInDown.delay(200 + index * 100)}
-            style={styles.exerciseCard}
-          >
-            <View style={styles.exerciseHeader}>
-              <Text style={styles.exerciseName}>{exercise.name}</Text>
-              <Text style={styles.exerciseDate}>{exercise.date}</Text>
-            </View>
+        <View style={styles.exerciseList}>
+          {exerciseHistory.map((exercise, index) => (
+            <Animated.View
+              key={exercise.id}
+              entering={FadeInDown.delay(200 + index * 100)}
+              style={styles.exerciseCard}
+            >
+              <View style={styles.exerciseHeader}>
+                <Text style={styles.exerciseName}>{exercise.name}</Text>
+                <Text style={styles.exerciseDate}>{exercise.date}</Text>
+              </View>
 
-            <View style={styles.setsList}>
-              {exercise.sets.map((set, setIndex) => (
-                <View key={setIndex} style={styles.setItem}>
-                  <Text style={styles.setText}>Set {setIndex + 1}</Text>
-                  <Text style={styles.setText}>{set.weight} lbs</Text>
-                  <Text style={styles.setText}>{set.reps} reps</Text>
-                </View>
-              ))}
-            </View>
+              <View style={styles.setsList}>
+                {exercise.sets.map((set, setIndex) => (
+                  <View key={setIndex} style={styles.setItem}>
+                    <Text style={styles.setText}>Set {setIndex + 1}</Text>
+                    <Text style={styles.setText}>{set.weight} lbs</Text>
+                    <Text style={styles.setText}>{set.reps} reps</Text>
+                  </View>
+                ))}
+              </View>
 
-            <Pressable style={styles.viewDetailsButton}>
-              <Text style={styles.viewDetailsText}>View Details</Text>
-              <Ionicons name="chevron-forward" size={16} color="#007AFF" />
-            </Pressable>
-          </Animated.View>
-        ))}
-      </View>
-    </ScrollView>
+              <Pressable style={styles.viewDetailsButton}>
+                <Text style={styles.viewDetailsText}>View Details</Text>
+                <Ionicons name="chevron-forward" size={16} color="#007AFF" />
+              </Pressable>
+            </Animated.View>
+          ))}
+        </View>
+      </ScrollView>
+    </SafeAreaLayout>
   );
 }
 

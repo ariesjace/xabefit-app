@@ -1,29 +1,25 @@
 import { Link } from 'expo-router';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import SafeAreaLayout from '../components/SafeAreaLayout';
 
-export default function Landing() {
+export default function LandingScreen() {
   return (
-    <View style={styles.container}>
-      <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
-        <Text style={styles.title}>Welcome to XabeFit</Text>
-        <Text style={styles.subtitle}>Your personal fitness journey starts here</Text>
-      </Animated.View>
-
-      <Animated.View entering={FadeInUp.delay(400)} style={styles.buttonContainer}>
-        <Link href="/auth/sign-in" asChild>
-          <Pressable style={[styles.button, styles.primaryButton]}>
-            <Text style={[styles.buttonText, styles.primaryButtonText]}>Sign In</Text>
-          </Pressable>
-        </Link>
-        
-        <Link href="/auth/sign-up" asChild>
-          <Pressable style={[styles.button, styles.secondaryButton]}>
-            <Text style={[styles.buttonText, styles.secondaryButtonText]}>Create Account</Text>
-          </Pressable>
-        </Link>
-      </Animated.View>
-    </View>
+    <SafeAreaLayout>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>XabeFit</Text>
+          <Text style={styles.subtitle}>Your Personal Fitness Journey</Text>
+        </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={[styles.button, styles.primaryButton]}>
+            <Link href="/auth/sign-up" style={styles.primaryButtonText}>Get Started</Link>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
+            <Link href="/auth/sign-in" style={styles.secondaryButtonText}>I already have an account</Link>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaLayout>
   );
 }
 
@@ -32,17 +28,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 24,
     justifyContent: 'space-between',
-    backgroundColor: '#fff',
   },
   header: {
-    marginTop: '40%',
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
     fontFamily: 'Rubik-Bold',
-    fontSize: 32,
-    marginBottom: 12,
-    textAlign: 'center',
+    fontSize: 48,
+    marginBottom: 16,
   },
   subtitle: {
     fontFamily: 'Rubik',
@@ -52,10 +47,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     gap: 16,
-    marginBottom: 48,
   },
   button: {
-    paddingVertical: 16,
+    padding: 16,
     borderRadius: 12,
     alignItems: 'center',
   },
@@ -65,14 +59,14 @@ const styles = StyleSheet.create({
   secondaryButton: {
     backgroundColor: '#F2F2F7',
   },
-  buttonText: {
+  primaryButtonText: {
     fontFamily: 'Rubik-Medium',
     fontSize: 16,
-  },
-  primaryButtonText: {
     color: '#fff',
   },
   secondaryButtonText: {
+    fontFamily: 'Rubik-Medium',
+    fontSize: 16,
     color: '#007AFF',
   },
 }); 

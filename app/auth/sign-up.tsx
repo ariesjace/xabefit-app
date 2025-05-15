@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
+import SafeAreaLayout from '../components/SafeAreaLayout';
 
-export default function SignUp() {
+export default function SignUpScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,64 +16,63 @@ export default function SignUp() {
   };
 
   return (
-    <View style={styles.container}>
-      <Pressable onPress={() => router.back()} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={24} color="#000" />
-      </Pressable>
-
-      <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
-        <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Start your fitness journey today</Text>
-      </Animated.View>
-
-      <Animated.View entering={FadeInDown.delay(400)} style={styles.form}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Full Name</Text>
-          <TextInput
-            style={styles.input}
-            value={name}
-            onChangeText={setName}
-            placeholder="Enter your full name"
-            autoCapitalize="words"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email</Text>
-          <TextInput
-            style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Enter your email"
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Create a password"
-            secureTextEntry
-          />
-        </View>
-
-        <Pressable onPress={handleSignUp} style={styles.signUpButton}>
-          <Text style={styles.signUpButtonText}>Create Account</Text>
+    <SafeAreaLayout>
+      <View style={styles.container}>
+        <Pressable onPress={() => router.back()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={24} color="#000" />
         </Pressable>
 
-        <Link href="/auth/sign-in" asChild>
-          <Pressable style={styles.footer}>
-            <Text style={styles.footerText}>
-              Already have an account? <Text style={styles.footerLink}>Sign In</Text>
-            </Text>
-          </Pressable>
-        </Link>
-      </Animated.View>
-    </View>
+        <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
+          <Text style={styles.title}>Create Account</Text>
+          <Text style={styles.subtitle}>Start your fitness journey today</Text>
+        </Animated.View>
+
+        <Animated.View entering={FadeInDown.delay(400)} style={styles.form}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Full Name</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              onChangeText={setName}
+              placeholder="Enter your full name"
+              autoCapitalize="words"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Email</Text>
+            <TextInput
+              style={styles.input}
+              value={email}
+              onChangeText={setEmail}
+              placeholder="Enter your email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.input}
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Create a password"
+              secureTextEntry
+            />
+          </View>
+
+          <TouchableOpacity onPress={handleSignUp} style={styles.signUpButton}>
+            <Text style={styles.signUpButtonText}>Create Account</Text>
+          </TouchableOpacity>
+
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>Already have an account? </Text>
+            <Link href="/auth/sign-in" style={styles.footerLink}>Sign In</Link>
+          </View>
+        </Animated.View>
+      </View>
+    </SafeAreaLayout>
   );
 }
 
@@ -133,12 +133,12 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
-    alignItems: 'center',
   },
   footerText: {
     fontFamily: 'Rubik',
-    fontSize: 16,
     color: '#666',
   },
   footerLink: {

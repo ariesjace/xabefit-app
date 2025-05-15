@@ -1,10 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import SafeAreaLayout from '../components/SafeAreaLayout';
 
-export default function SignIn() {
+export default function SignInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -14,53 +13,31 @@ export default function SignIn() {
   };
 
   return (
-    <View style={styles.container}>
-      <Pressable onPress={() => router.back()} style={styles.backButton}>
-        <Ionicons name="arrow-back" size={24} color="#000" />
-      </Pressable>
-
-      <Animated.View entering={FadeInDown.delay(200)} style={styles.header}>
-        <Text style={styles.title}>Welcome Back!</Text>
-        <Text style={styles.subtitle}>Sign in to continue your fitness journey</Text>
-      </Animated.View>
-
-      <Animated.View entering={FadeInDown.delay(400)} style={styles.form}>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Email</Text>
+    <SafeAreaLayout>
+      <View style={styles.container}>
+        <Text style={styles.title}>Sign In</Text>
+        <View style={styles.form}>
           <TextInput
             style={styles.input}
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Enter your email"
+            placeholder="Email"
             keyboardType="email-address"
             autoCapitalize="none"
           />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Password</Text>
           <TextInput
             style={styles.input}
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Enter your password"
+            placeholder="Password"
             secureTextEntry
           />
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
         </View>
-
-        <Pressable onPress={handleSignIn} style={styles.signInButton}>
-          <Text style={styles.signInButtonText}>Sign In</Text>
-        </Pressable>
-
-        <Link href="/auth/sign-up" asChild>
-          <Pressable style={styles.footer}>
-            <Text style={styles.footerText}>
-              Don't have an account? <Text style={styles.footerLink}>Sign Up</Text>
-            </Text>
-          </Pressable>
-        </Link>
-      </Animated.View>
-    </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Don't have an account? </Text>
+          <Link href="/auth/sign-up" style={styles.link}>Sign Up</Link>
+        </View>
+      </View>
+    </SafeAreaLayout>
   );
 }
 
@@ -68,69 +45,47 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: '#fff',
-  },
-  backButton: {
-    marginTop: 20,
-    width: 40,
-    height: 40,
     justifyContent: 'center',
-  },
-  header: {
-    marginTop: '15%',
-    marginBottom: 48,
   },
   title: {
     fontFamily: 'Rubik-Bold',
     fontSize: 32,
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontFamily: 'Rubik',
-    fontSize: 18,
-    color: '#666',
+    marginBottom: 32,
+    textAlign: 'center',
   },
   form: {
-    gap: 24,
-  },
-  inputContainer: {
-    gap: 8,
-  },
-  label: {
-    fontFamily: 'Rubik-Medium',
-    fontSize: 16,
-    color: '#333',
+    gap: 16,
   },
   input: {
-    fontFamily: 'Rubik',
-    fontSize: 16,
+    backgroundColor: '#F2F2F7',
     padding: 16,
     borderRadius: 12,
-    backgroundColor: '#F2F2F7',
+    fontFamily: 'Rubik',
+    fontSize: 16,
   },
-  signInButton: {
+  button: {
     backgroundColor: '#007AFF',
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 8,
   },
-  signInButtonText: {
+  buttonText: {
+    color: '#fff',
     fontFamily: 'Rubik-Medium',
     fontSize: 16,
-    color: '#fff',
   },
   footer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginTop: 24,
-    alignItems: 'center',
   },
   footerText: {
     fontFamily: 'Rubik',
-    fontSize: 16,
     color: '#666',
   },
-  footerLink: {
-    color: '#007AFF',
+  link: {
     fontFamily: 'Rubik-Medium',
+    color: '#007AFF',
   },
 }); 
